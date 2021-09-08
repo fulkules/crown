@@ -26,6 +26,24 @@ class ShopPage extends React.Component {
             updateCollections(collectionsMap);
             this.setState({ isLoading: false });
         });
+
+        // another way to do this using promise pattern (loses the continuous stream)
+
+        // collectionRef.get().then(snapshot => {           
+        //     const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+        //     updateCollections(collectionsMap);
+        //     this.setState({ isLoading: false });
+        // });
+
+        // using native fetch API -- items are nested pretty deep
+        // fetch('https://firestore.googleapis.com/v1/projects/YOUR_PROJECT_ID_HERE/databases/(default)/documents/collections')
+        //      .then(res => res.json())
+        //      .then(collections => collections => {           
+            //     const collectionsMap = convertCollectionsSnapshotToMap(collections);
+            //     updateCollections(collectionsMap);
+            //     this.setState({ isLoading: false });
+            // })
+
     }
 
     render(){
