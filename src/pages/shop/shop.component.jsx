@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container';
 import CollectionPageContainer from '../collection/collection.container';
 import { Route } from 'react-router-dom';
 // import { firestore, convertCollectionsSnapshotToMap } from '../../firebase/firebase.utils';
 import { connect } from 'react-redux';
 import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions';
-class ShopPage extends React.Component {
+
+const ShopPage = ({ match }) => {
 
     // state = {
     //     isLoading: true
@@ -43,22 +44,16 @@ class ShopPage extends React.Component {
 
     // }
 
-    componentDidMount(){
-        const { fetchCollectionsStartAsync } = this.props;
+    useEffect(() => {
         fetchCollectionsStartAsync();
-    }
+    }, []);
 
-    render(){
-        const { match } = this.props;
-        // const { isLoading } = this.state;
-        return(
-            <div className="shop-page">
-                <Route exact path={`${match.path}`} component={ CollectionsOverviewContainer } />
-                <Route path={`${match.path}/:collectionId`} component={ CollectionPageContainer } />
-            </div>
-        );
-
-    }
+    return(
+        <div className="shop-page">
+            <Route exact path={`${match.path}`} component={ CollectionsOverviewContainer } />
+            <Route path={`${match.path}/:collectionId`} component={ CollectionPageContainer } />
+        </div>
+    );
 };
 
 const mapDispatchToProps = (dispatch) => ({
